@@ -9,7 +9,7 @@ class MembersOnlyArticlesController < ApplicationController
   end
 
   def show
-    return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :is_member_only
+    return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     article = Article.find(params[:id])
     render json: article
   end
@@ -20,7 +20,7 @@ class MembersOnlyArticlesController < ApplicationController
     render json: { error: "Article not found" }, status: :not_found
   end
   def authorize
-    return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :is_member_only
+    return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
   end
 
 end
